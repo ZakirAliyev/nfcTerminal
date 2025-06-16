@@ -9,12 +9,11 @@ export default function LoginPage() {
 
     const handleLogin = () => {
         if (!username) return alert('Ad daxil edin');
-
         localStorage.setItem('login', JSON.stringify({ role, username }));
-        const key = `balance_${role}_${username}`;
-        if (!localStorage.getItem(key)) {
-            const start = role === 'admin' ? 0 : 1000;
-            localStorage.setItem(key, start.toString());
+
+        const balanceKey = `balance_${role}_${username}`;
+        if (!localStorage.getItem(balanceKey)) {
+            localStorage.setItem(balanceKey, role === 'admin' ? '0' : '1000');
         }
 
         router.push('/dashboard');
@@ -25,7 +24,7 @@ export default function LoginPage() {
             <h2>Giriş</h2>
             <select value={role} onChange={(e) => setRole(e.target.value)}>
                 <option value="user">İstifadəçi</option>
-                <option value="admin">Admin (Terminal)</option>
+                <option value="admin">Admin (POS)</option>
             </select>
             <input
                 type="text"
